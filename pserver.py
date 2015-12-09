@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import signal
@@ -40,15 +40,15 @@ print 'Socket now listening'
 def clientthread(conn, addr):
     f = open(addr[0] + '-' + str(addr[1]) + '.txt', 'ab')
     f.write('# ' + time.strftime('%d-%m-%Y %H:%M:%S') + '\n')
-    conn.send('todo bien')
+    # conn.send('todo bien')
 
     while True:
         data = conn.recv(1024)
         f.write(data)
-        reply = 'Recibido: ' + data
+        # reply = 'Recibido: ' + data
         if not data:
             break
-        conn.sendall(reply)
+        # conn.sendall(reply)
 
     print 'Conexión terminada con ' + addr[0]
     f.close()
