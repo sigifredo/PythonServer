@@ -3,7 +3,7 @@
 
 import socket, ssl, pprint
 
-def client(text, ip = 'localhost', error=False):
+def send2server(text, host = 'localhost', error=False):
     ret = True
 
     try:
@@ -11,7 +11,7 @@ def client(text, ip = 'localhost', error=False):
         ss = ssl.wrap_socket(s, ca_certs="certs/server.crt", cert_reqs=ssl.CERT_REQUIRED)
 
         try:
-            ss.connect((ip, 8888))
+            ss.connect((host, 8888))
             ss.write('boo!')
             ss.close()
         except Exception, e1:
@@ -25,4 +25,10 @@ def client(text, ip = 'localhost', error=False):
             print e2
         ret = False
 
+    return ret
+
+def send2servers(text, hosts = ['localhost'], error=False):
+    ret = True
+    for host in hosts:
+        ret &= send2server(text, host, error)
     return ret
